@@ -24,6 +24,9 @@ from tkinter import *
 from tkinter.filedialog import askopenfilename
 if __name__ == "__main__":
     root = Tk()
+    parser = argparse.ArgumentParser(description="read input")
+    parser.add_argument('--f',dest='filename', required=True, help='the filename to use for the generated code')
+    args = parser.parse_args()
 
     #setting up a tkinter canvas with scrollbars
     frame = Frame(root, bd=2, relief=SUNKEN)
@@ -56,3 +59,7 @@ if __name__ == "__main__":
 
     root.mainloop()
     print("finished")
+    print("writing to file {}".format(args.filename))
+    with open(args.filename, 'w') as file:
+        for line in rma_sheet(*allpoints):
+            file.write(line)
