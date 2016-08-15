@@ -1,6 +1,25 @@
+import sys
+import argparse
 # im = Image.open(sys.argv[1])
 # im.show()
 # print("hello from : ", sys.argv[0])
+def rma_sheet(*args):
+    header= 'from PIL import ImageFont, ImageDraw, Image\n'
+    importt = 'im = Image.open(argv[1]).convert("RGBA")'
+    font = 'font = ImageFont.truetype("usr/share/fonts/truetype/freefont/FreeSans.ttf", 35)'
+    draw = 'draw = imageDraw(im)'
+    text = 'draw.text(({}, {}), argv[{}], font=font, fill=(0, 0, 0, 255))\n'
+    rows = ''
+    final = 'im.show()'
+    y=1
+    for i in args:
+        rows = rows + text.format(i[0] , i[1], y)
+        y+=1
+    s = '\n'
+    f = s.join((header, importt, font, draw, rows, final))
+    return f
+
+
 from tkinter import *
 from tkinter.filedialog import askopenfilename
 if __name__ == "__main__":
