@@ -4,14 +4,14 @@ import argparse
 # im.show()
 # print("hello from : ", sys.argv[0])
 def rma_sheet(*args):
-    header= 'from PIL import ImageFont, ImageDraw, Image\n'
-    importt = 'im = Image.open(argv[1]).convert("RGBA")'
-    font = 'font = ImageFont.truetype("usr/share/fonts/truetype/freefont/FreeSans.ttf", 35)'
-    draw = 'draw = imageDraw(im)'
-    text = 'draw.text(({}, {}), argv[{}], font=font, fill=(0, 0, 0, 255))\n'
+    header= 'from PIL import ImageFont, ImageDraw, Image\nimport sys'
+    importt = 'im = Image.open(sys.argv[1]).convert("RGBA")'
+    font = 'font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeSans.ttf", 35)'
+    draw = 'draw = ImageDraw.Draw(im)'
+    text = 'draw.text(({}, {}), sys.argv[{}], font=font, fill=(0, 0, 0, 255))\n'
     rows = ''
     final = 'im.show()'
-    y=1
+    y=2
     for i in args:
         rows = rows + text.format(i[0] , i[1], y)
         y+=1
@@ -52,7 +52,7 @@ if __name__ == "__main__":
     allpoints = []
     def printcoords(event):
         #outputting x and y coords to console
-        allpoints.append([event.x, event.y])
+        allpoints.append([canvas.canvasx(event.x), canvas.canvasy(event.y)])
         print (allpoints)
     #mouseclick event
     canvas.bind("<Button 1>",printcoords)
